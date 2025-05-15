@@ -13,3 +13,85 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id             Int             @id @default(autoincrement())
+  email          String          @unique
+  password       String
+  emailVerified  DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  cards          Card[]
+  comments       Comment[]
+  listings       Listing[]
+  tradesOffered  Trade[]         @relation("offeredTrades")
+  tradesReceived Trade[]         @relation("receivedTrades")
+  gameSessions   GameSession[]
+}
+
+model Card {
+  id          Int       @id @default(autoincrement())
+  name        String
+  imageUrl    String
+  description String?
+  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  comments    Comment[]
+  listings    Listing[]
+  tradesAsOffered   Trade[]   @relation("offeredTrades")
+  tradesAsRequested Trade[]   @relation("receivedTrades")
+  createdAt   DateTime  @default(now())
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  card      Card     @relation(fields: [cardId], references: [id])
+  cardId    Int
+  createdAt DateTime @default(now())
+}
+
+model Listing {
+  id        Int      @id @default(autoincrement())
+  card      Card     @relation(fields: [cardId], references: [id])
+  cardId    Int
+  seller    User     @relation(fields: [sellerId], references: [id])
+  sellerId  Int
+  price     Decimal
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Trade {
+  id             Int      @id @default(autoincrement())
+  offeredCard    Card     @relation("offeredTrades", fields: [offeredCardId], references: [id])
+  offeredCardId  Int
+  requestedCard  Card     @relation("receivedTrades", fields: [requestedCardId], references: [id])
+  requestedCardId Int
+  fromUser       User     @relation("offeredTrades", fields: [fromUserId], references: [id])
+  fromUserId     Int
+  toUser         User     @relation("receivedTrades", fields: [toUserId], references: [id])
+  toUserId       Int
+  status         TradeStatus @default(PENDING)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model GameSession {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  score     Int
+  level     String
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+}
+
+enum TradeStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}

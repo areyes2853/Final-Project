@@ -24,6 +24,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.3",
+    "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.8.0",
     "next": "15.3.2",
     "react": "^19.0.0",

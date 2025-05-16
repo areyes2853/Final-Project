@@ -28,11 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${chewy.className}`}
-      >
+      <body className={`${chewy.className}`}>
         <Navbar />
-        {children}
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 bg-[url('/images/pokemon2.png')] bg-cover bg-center h-64 w-full">
+          {children}
+        </div>
       </body>
     </html>
   );

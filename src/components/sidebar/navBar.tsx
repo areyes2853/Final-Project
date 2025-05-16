@@ -2,14 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from '../../../public/images/Pokemon.png';
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
+import { Disclosure,DisclosureButton,DisclosurePanel,Menu,MenuButton,MenuItem,MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { link } from "fs";
@@ -17,14 +10,14 @@ import { link } from "fs";
 
 const navigation = [
   { name: "Dashboard", link: "/", current: true },
-  {name: "Marketplace",link: "../../Pages/marketPlace.tsx",current: false,},
-  { name: "Trading", link: "#", current: false },
-  { name: "Gaming", link: "#", current: false },
-  { name: "About", link: "#", current: false },
-  { name: "Contact", link: "#", current: false },
-  { name: "Profile", link: "#", current: false },
-  { name: "Settings", link: "#", current: false },
-  { name: "Sign out", link: "#", current: false },
+  {name: "Marketplace",link: "/marketPlace",current: false,},
+  { name: "Trading", link: "/trade", current: false },
+  { name: "Gaming", link: "/game", current: false },
+  { name: "About", link: "/about", current: false },
+  { name: "Contact", link: "/contact", current: false },
+  { name: "Profile", link: "/userProfile", current: false },
+  { name: "Settings", link: "/setting", current: false },
+  { name: "Sign out", link: "/userProfile/signOut", current: false },
 ];
 const newNavigation = navigation.slice(0, 6);
 function classNames(...classes: (string | undefined | null | false)[]) {
@@ -54,28 +47,24 @@ export default function Navbar() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src={Logo.src}
-                className="h-8 w-auto"
-              />
+              <img alt="Your Company" src={Logo.src} className="h-8 w-auto" />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {newNavigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.link}
-                    aria-current={item.current ? "page" : undefined}
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "rounded-md px-3 py-2 text-sm font-medium"
                     )}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -158,20 +147,21 @@ export default function Navbar() {
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
           {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.link}
-              aria-current={item.current ? "page" : undefined}
-              className={classNames(
-                item.current
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
+            <Link key={item.name} href={item.link} passHref legacyBehavior>
+              <DisclosureButton
+                as="a" // 'as="a"' is fine here when used with Link legacyBehavior
+                // href={item.link} // Link component handles the href
+                aria-current={item.current ? "page" : undefined}
+                className={classNames(
+                  item.current
+                    ? "bg-gray-900 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                  "block rounded-md px-3 py-2 text-base font-medium"
+                )}
+              >
+                {item.name}
+              </DisclosureButton>
+            </Link>
           ))}
         </div>
       </DisclosurePanel>

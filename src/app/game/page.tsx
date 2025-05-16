@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Trade() {
+export default function Game() {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Hello Gamers</h1>
     </div>
   );
 }

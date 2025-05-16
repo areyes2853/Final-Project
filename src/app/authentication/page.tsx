@@ -4,7 +4,7 @@ import React from 'react';
 export default function Authentication() {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Hello Authentication</h1>
     </div>
   );
 }

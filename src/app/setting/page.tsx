@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function CardDetail() {
+export default function HelloPage() {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Hello Settings</h1>
     </div>
   );
 }

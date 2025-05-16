@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Marketplace() {
+export default function HelloPage() {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Hello Contact</h1>
     </div>
   );
 }

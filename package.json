@@ -2,6 +2,20 @@
   "name": "final-project",
   "version": "0.1.0",
   "private": true,
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "keywords": [],
+  "homepage": "https://github.com/areyes2853/Final-Project#readme",
+  "bugs": {
+    "url": "https://github.com/areyes2853/Final-Project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/areyes2853/Final-Project.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -13,18 +27,23 @@
     "@prisma/client": "^6.8.0",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-use": "^17.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/cli": "^4.1.7",
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "postcss": "^8.5.3",
     "prisma": "^6.8.0",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.7",
     "typescript": "^5"
   }
 }

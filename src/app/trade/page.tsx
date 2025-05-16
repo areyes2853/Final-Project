@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Trade() {
+export default function TradePage() {
   return (
     <div>
       <h1>Hello Trade</h1>

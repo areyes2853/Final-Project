@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Marketplace() {
+export default function MarketplacePage() {
   return (
     <div>
       <h1>Hello MarketPlace</h1>

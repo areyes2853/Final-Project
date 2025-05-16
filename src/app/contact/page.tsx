@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HelloPage() {
+export default function HelloPagePage() {
   return (
     <div>
       <h1>Hello Contact</h1>

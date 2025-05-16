@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HelloPage() {
+export default function SettingPage() {
   return (
     <div>
       <h1>Hello Settings</h1>

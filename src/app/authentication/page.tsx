@@ -1,7 +1,7 @@
 import { validateHeaderValue } from "http";
 import React from 'react';
 
-export default function Authentication() {
+export default function AuthenticationPage() {
   return (
     <div>
       <h1>Hello Authentication</h1>

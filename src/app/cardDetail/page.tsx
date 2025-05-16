@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CardDetail() {
+export default function CardDetailPage() {
   return (
     <div>
       <h1>Hello CardDetail</h1>

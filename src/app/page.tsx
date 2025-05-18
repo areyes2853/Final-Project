@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="bg-white">
+    <div className="bg-white rounded-md">
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div
           aria-hidden="true" // Keeping this as true for a decorative element
@@ -48,11 +48,11 @@ export default function Home() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
               >
                 Get started
               </a>
-              <a href="#" className="text-sm/6 font-semibold text-gray-900">
+              <a href="#" className="text-lg/6 font-semibold text-gray-900">
                 Learn more <span aria-hidden="true">→</span>
               </a>
             </div>

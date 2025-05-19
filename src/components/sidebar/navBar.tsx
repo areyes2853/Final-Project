@@ -4,10 +4,11 @@
 "use client"; 
 import Link from "next/link";
 import{Disclosure,DisclosureButton,DisclosurePanel,Menu,MenuButton,MenuItem,MenuItems,} from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
+import { Bars3Icon,XMarkIcon, MagnifyingGlassIcon, } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
-import { it } from "node:test";
-import { LogIn, UserPlus } from "lucide-react";
+import { LogIn, UserPlus} from "lucide-react";
+import { useUser } from "@auth0/nextjs-auth0";
+
 
 const navigation = [
   { name: "Dashboard", link: "/", current: true },
@@ -18,7 +19,7 @@ const navigation = [
   { name: "Contact", link: "/contact", current: false },
   { name: "Profile", link: "/userProfile", current: false },
   { name: "Settings", link: "/setting", current: false },
-  { name: "Sign out", link: "/userProfile/signOut", current: false },
+  { name: "Sign out", link: "/auth/logout", current: false },
 ];
 
 // Slicing for main navigation links shown on desktop
@@ -35,6 +36,8 @@ function classNames(...classes: (string | undefined | null | false)[]) {
 export default function Navbar() {
   
   const pathname = usePathname();
+  const { user, error, isLoading } = useUser();
+  
 
   return (
     <Disclosure
@@ -106,67 +109,67 @@ export default function Navbar() {
                 />
               </div>
             </div>
-            <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
-            </button>
-            <div className="items-center gap-4">
-              <Link
-                href="/login"
-                className="flex items-center font-bold rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 "
-              >
-                <LogIn size={20} />
-                Login
-              </Link>
-            </div>
-            <div className="items-center gap-4">
-              <Link
-                href="/userProfile"
-                className="flex items-center font-bold rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 "
-              >
-                <UserPlus size={20} />
-                Register
-              </Link>
-            </div>
-
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    alt="User avatar" // Added more descriptive alt text
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    className="size-8 rounded-full"
-                  />
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                {settingsNavigation.map((item, index: number) => (
-                  <MenuItem key={index}>
-                    <Link
-                      href={item.link}
-                      className={classNames(
-                        item.link === pathname
-                          ? "bg-gray-300 text-gray-900"
-                          : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  </MenuItem>
-                ))}
-              </MenuItems>
-            </Menu>
+           
+         
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : !user ? (
+              <>
+                <div className="items-center gap-4">
+                  <Link
+                    href="/auth/login"
+                    className="flex items-center font-bold rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 "
+                  >
+                    <LogIn size={20} />
+                    Login
+                  </Link>
+                </div>
+                <div className="items-center gap-4">
+                  <Link
+                    href="/userProfile"
+                    className="flex items-center font-bold rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 "
+                  >
+                    <UserPlus size={20} />
+                    Register
+                  </Link>
+                </div>
+              </>
+            ) : (
+              // Profile dropdown
+              <Menu as="div" className="relative ml-3">
+                <div>
+                  <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">Open user menu</span>
+                    <img
+                      alt={user?.name}
+                      src={user?.picture}
+                      className="size-8 rounded-full"
+                    />
+                  </MenuButton>
+                </div>
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  {settingsNavigation.map((item, index: number) => (
+                    <MenuItem key={index}>
+                      <Link
+                        href={item.link}
+                        className={classNames(
+                          item.link === pathname
+                            ? "bg-gray-300 text-gray-900"
+                            : "text-gray-700",
+                          "block px-4 py-2 text-sm"
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </MenuItems>
+              </Menu>
+            )}
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/sidebar/navBar";
 import { Chewy as ChewyFont } from "next/font/google";
+import ContextProvider from "@/providers/ContextProvider";
+
 
 const chewy = ChewyFont({ subsets: ["latin"], weight: "400" });
 
@@ -28,6 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <ContextProvider>
       <body
         className={`${chewy.className} bg-[url('/images/best.jpg')] bg-cover bg-center`}
       >
@@ -36,6 +39,7 @@ export default function RootLayout({
           {children}
         </div>
       </body>
+      </ContextProvider>
     </html>
   );
 }

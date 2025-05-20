@@ -1,13 +1,13 @@
-'use client'
-import React, { use } from 'react'
-import { GlobalContestProvider } from '@/contest/globalContest'
+"use client";
+import React, { use } from "react";
+import { GlobalContestProvider } from "@/app/contest/globalContest";
 
-interface Props{
-  children: React.ReactNode
+interface Props {
+  children: React.ReactNode;
 }
 
-function ContextProvider({children}: Props) {
+function ContextProvider({ children }: Props) {
   return <GlobalContestProvider>{children}</GlobalContestProvider>;
 }
 
-export default ContextProvider
+export default ContextProvider;

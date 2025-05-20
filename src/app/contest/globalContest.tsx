@@ -1,7 +1,7 @@
 import { User } from "lucide-react";
 import React from "react";
 import { usePokemonData } from "./userPokemonData";
-import { useUserData } from "./userData"
+import { useUserData } from "../api/page"
 import { useUser } from "@auth0/nextjs-auth0";
 
 

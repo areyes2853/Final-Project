@@ -1,5 +1,5 @@
 "use client";
-import { useGlobalContest } from "@/contest/globalContest";
+import { useGlobalContest } from "@/app/contest/globalContest";
 import React, { useState, useEffect } from "react";
 import { colorMapOriginal } from "@/utils/color";
 import { Icons } from "@/utils/icons";
@@ -26,9 +26,7 @@ const page = ({ params }: Props) => {
 
   useEffect(() => {
     if (activePokemon?.types && activePokemon.types.length > 0) {
-      const typeName = Math.floor(
-        Math.random() * activePokemon.types.length
-      );
+      const typeName = Math.floor(Math.random() * activePokemon.types.length);
       setDisplayedTypeName(activePokemon.types[typeName].type.name);
     } else {
       setDisplayedTypeName(null);
@@ -116,13 +114,13 @@ const page = ({ params }: Props) => {
                 <li
                   key={index}
                   className="flex flex-col gap-1 px-4 py-2 bg-gray-100 rounded-lg shadow-md capitalize" // Added capitalize
-                > <div className="flex items-center gap-4">
-                  <span
-                    className="capitalize text-black text-sm ml-2">
-                    {stat.stat.name}
+                >
+                  {" "}
+                  <div className="flex items-center gap-4">
+                    <span className="capitalize text-black text-sm ml-2">
+                      {stat.stat.name}
                     </span>
-                    <span
-                      className="capitilze text-black text-sm ml-2">
+                    <span className="capitilze text-black text-sm ml-2">
                       {stat.base_stat}
                     </span>
                   </div>
@@ -130,10 +128,9 @@ const page = ({ params }: Props) => {
                     <div
                       className="bg-blue-500 h-full"
                       style={{
-                        width: `${(stat.base_stat/100)*100}%`,
+                        width: `${(stat.base_stat / 100) * 100}%`,
                       }}
                     ></div>
-
                   </div>
                 </li>
               ))}
@@ -142,7 +139,6 @@ const page = ({ params }: Props) => {
           <div className="mt-2 flex gap-4">
             <p className="p-4 flex flex-col items-center justify-center uppercase text-gray-600 font-bold bg-white rounded-lg">
               <span className="text-sm flex items-center gap-2">
-                
                 {Icons.Ruler} Height
               </span>
               {activePokemon?.height}m
@@ -210,9 +206,8 @@ const page = ({ params }: Props) => {
               {" "}
               {/* Align text to right */}
               <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                
                 Pokemon Details
-              </h3>       
+              </h3>
             </div>
             {/* Empty div removed as it's not needed */}
           </div>

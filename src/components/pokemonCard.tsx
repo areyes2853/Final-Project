@@ -1,9 +1,8 @@
 import React, { use } from "react";
 import { Icons } from "@/utils/icons";
 import { useRouter } from "next/navigation";
-import { Wind } from "lucide-react";
 import { colorMap } from "@/utils/color";
-import { useGlobalContest } from "@/contest/globalContest";
+import { useGlobalContest } from "@/app/contest/globalContest";
 import { useUser } from "@auth0/nextjs-auth0";
 
 interface PokemonCardProps {
@@ -12,11 +11,11 @@ interface PokemonCardProps {
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const { user } = useUser();
-  const {performAction} =useGlobalContest();
+  const { performAction } = useGlobalContest();
   const router = useRouter();
- 
+
   const key = pokemon.type?.type?.name;
- const bgColor = colorMap[key] || "bg-gray-200";
+  const bgColor = colorMap[key] || "bg-gray-200";
   return (
     <div className="relateve p-4 bg-white rounded-xl shadow-sm flex flex-col gap-2">
       <div className=" flex justify-between items-center">

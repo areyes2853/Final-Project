@@ -31,10 +31,11 @@ const GlobalContest = React.createContext<GlobalContestContextType>({
   userDetails: undefined, // Initialize with undefined
   // Initialize with a no-op function
 });
-const {user} = useUser();
+
 
 export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { loadMore, loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName, activePokemon } = usePokemonData();
+  const { user } = useUser();
   const { userDetails, performAction } = useUserData(user?.sub);
   console.log("GlobalContestProvider");
 

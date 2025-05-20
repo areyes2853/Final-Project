@@ -23,21 +23,25 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
         <div className="flex gap-4 bg-white rounded-tl-xl rounded-tr-xl">
           <button
             className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
-          >
-            {Icons.heartEmpty}
-          </button>
-          <button
-            className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
             onClick={() => {
               if (user?.sub) {
-                router.push("/api/auth/login");
+                console.log("User ID:", user.sub);
+                console.log("Pokemon Name:", pokemon.name);
+                console.log("Action: like");
                 if (performAction) {
-                  performAction(user.sub, pokemon.name, "add");
+                  performAction(user.sub, pokemon.name, "liked").then(() => {
+                    console.log("Pokemon liked successfully");
+                  });
                 }
               } else {
                 router.push("/api/auth/login");
               }
             }}
+          >
+            {Icons.heartEmpty}
+          </button>
+          <button
+            className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
           >
             {Icons.bookmarkEmpty}
           </button>

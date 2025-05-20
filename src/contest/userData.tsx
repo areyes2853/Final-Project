@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react"
+import { POST } from "../app/route/page"
 
 interface UserDetails {
   // Define the shape of userDetails here if known, otherwise use any
@@ -14,7 +15,7 @@ export const useUserData = (user: any) => {
     action: string
   ): Promise<any> => {
     try {
-      await axios.post("/contest/route", {
+      await axios.post("/route", {
         id,
         pokemon: _pokema,
         action,
@@ -37,5 +38,5 @@ export const useUserData = (user: any) => {
       }
     : null;
 
-  return {userDetails, performAction };
+  return {userDetails, performAction, userInfo};
 };

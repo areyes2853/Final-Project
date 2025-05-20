@@ -4,23 +4,34 @@ import { usePokemonData } from "./userPokemonData";
 
 
 type GlobalContestContextType = {
+  loadMore: () => void;
   loading: boolean;
   fetchPokemon: () => void;
-  pokemonListDetails: any[]; // Replace 'any[]' with the actual type if available
+  pokemonListDetails: any[];
+  pokemonList: any[];
+  fetchPokemonDetailsByName: (name: string) => Promise<any>;
+  activePokemon?: any;
+  // Replace 'any' with the actual type if available
+  // Replace 'any[]' with the actual type if available
 };
 
 const GlobalContest = React.createContext<GlobalContestContextType>({
   loading: false,
   pokemonListDetails: [],
+  loadMore: () => {},
   fetchPokemon: () => {},
+  fetchPokemonDetailsByName: async (name: string) => Promise.resolve(),
+  pokemonList: [],
+  activePokemon: undefined,
+  // Initialize with a no-op function
 });
 
 export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const { loading, fetchPokemon,pokemonListDetails } = usePokemonData();
+  const { loadMore,loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName,activePokemon } = usePokemonData();
   console.log("GlobalContestProvider");
 
   return (
-    <GlobalContest.Provider value={{ loading, fetchPokemon,pokemonListDetails }}>
+    <GlobalContest.Provider value={{loadMore, loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName,activePokemon }}>
       {children}
     </GlobalContest.Provider>
   );

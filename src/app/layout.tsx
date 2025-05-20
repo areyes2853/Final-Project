@@ -39,16 +39,17 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <ContextProvider>
-        <body
-          className={`${chewy.className} bg-[url('/images/best.jpg')] bg-cover bg-center`}
-        >
+
+      <body
+        className={`${chewy.className} ${geistSans.variable} ${geistMono.variable} bg-[#f5f5f5] text-[#333]`}
+      >
+        <ContextProvider>
           <Navbar />
           <div className="flex flex-col items-center justify-center min-h-screen">
             {children}
           </div>
-        </body>
-      </ContextProvider>
+        </ContextProvider>
+      </body>
     </html>
   );
 }

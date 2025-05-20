@@ -2,6 +2,7 @@ import React from "react";
 import { Icons } from "@/utils/icons";
 import { useRouter } from "next/navigation";
 import { Wind } from "lucide-react";
+import { colorMap } from "@/utils/color";
 
 interface PokemonCardProps {
   pokemon: any;
@@ -9,19 +10,7 @@ interface PokemonCardProps {
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const router = useRouter();
-  const colorMap: Record<string, string> = {
-    fire: "bg-red-500",
-    water: "bg-blue-500",
-    grass: "bg-green-500",
-    electric: "bg-yellow-400",
-    ice: "bg-blue-200",
-    flying: "bg-gray-500",
-    bug: "bg-green-300",
-    poison: "bg-purple-900",
-    ground: "bg-orange-950",
-    normal: "bg-black",
-    fairy: "bg-fuchsia-300"
-  };
+ 
   const key = pokemon.type?.type?.name;
  const bgColor = colorMap[key] || "bg-gray-200";
   return (

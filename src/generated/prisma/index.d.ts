@@ -1497,27 +1497,23 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: number | null
-    email: string | null
-    password: string | null
-    emailVerified: Date | null
+    auth0Id: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
-    email: string | null
-    password: string | null
-    emailVerified: Date | null
+    auth0Id: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    email: number
-    password: number
-    emailVerified: number
+    auth0Id: number
+    bookmarks: number
+    liked: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1534,27 +1530,23 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    email?: true
-    password?: true
-    emailVerified?: true
+    auth0Id?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    email?: true
-    password?: true
-    emailVerified?: true
+    auth0Id?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    email?: true
-    password?: true
-    emailVerified?: true
+    auth0Id?: true
+    bookmarks?: true
+    liked?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1648,9 +1640,9 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    email: string
-    password: string
-    emailVerified: Date | null
+    auth0Id: string
+    bookmarks: string[]
+    liked: string[]
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1676,9 +1668,9 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    email?: boolean
-    password?: boolean
-    emailVerified?: boolean
+    auth0Id?: boolean
+    bookmarks?: boolean
+    liked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     cards?: boolean | User$cardsArgs<ExtArgs>
@@ -1692,32 +1684,32 @@ export namespace Prisma {
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    email?: boolean
-    password?: boolean
-    emailVerified?: boolean
+    auth0Id?: boolean
+    bookmarks?: boolean
+    liked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    email?: boolean
-    password?: boolean
-    emailVerified?: boolean
+    auth0Id?: boolean
+    bookmarks?: boolean
+    liked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    email?: boolean
-    password?: boolean
-    emailVerified?: boolean
+    auth0Id?: boolean
+    bookmarks?: boolean
+    liked?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "emailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auth0Id" | "bookmarks" | "liked" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cards?: boolean | User$cardsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
@@ -1742,9 +1734,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      email: string
-      password: string
-      emailVerified: Date | null
+      auth0Id: string
+      bookmarks: string[]
+      liked: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2177,9 +2169,9 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
-    readonly email: FieldRef<"User", 'String'>
-    readonly password: FieldRef<"User", 'String'>
-    readonly emailVerified: FieldRef<"User", 'DateTime'>
+    readonly auth0Id: FieldRef<"User", 'String'>
+    readonly bookmarks: FieldRef<"User", 'String[]'>
+    readonly liked: FieldRef<"User", 'String[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -8501,9 +8493,9 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    email: 'email',
-    password: 'password',
-    emailVerified: 'emailVerified',
+    auth0Id: 'auth0Id',
+    bookmarks: 'bookmarks',
+    liked: 'liked',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8701,9 +8693,9 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    email?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
-    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    auth0Id?: StringFilter<"User"> | string
+    bookmarks?: StringNullableListFilter<"User">
+    liked?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
@@ -8716,9 +8708,9 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    emailVerified?: SortOrderInput | SortOrder
+    auth0Id?: SortOrder
+    bookmarks?: SortOrder
+    liked?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     cards?: CardOrderByRelationAggregateInput
@@ -8731,12 +8723,12 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    email?: string
+    auth0Id?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    password?: StringFilter<"User"> | string
-    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    bookmarks?: StringNullableListFilter<"User">
+    liked?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
@@ -8745,13 +8737,13 @@ export namespace Prisma {
     tradesOffered?: TradeListRelationFilter
     tradesReceived?: TradeListRelationFilter
     gameSessions?: GameSessionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "auth0Id">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    emailVerified?: SortOrderInput | SortOrder
+    auth0Id?: SortOrder
+    bookmarks?: SortOrder
+    liked?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8766,9 +8758,9 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    email?: StringWithAggregatesFilter<"User"> | string
-    password?: StringWithAggregatesFilter<"User"> | string
-    emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    auth0Id?: StringWithAggregatesFilter<"User"> | string
+    bookmarks?: StringNullableListFilter<"User">
+    liked?: StringNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -9121,9 +9113,9 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -9136,9 +9128,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -9150,9 +9142,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -9165,9 +9157,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -9180,26 +9172,26 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9550,15 +9542,12 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -9602,11 +9591,6 @@ export namespace Prisma {
     none?: GameSessionWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type CardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9629,9 +9613,9 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    emailVerified?: SortOrder
+    auth0Id?: SortOrder
+    bookmarks?: SortOrder
+    liked?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9642,18 +9626,14 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    emailVerified?: SortOrder
+    auth0Id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    emailVerified?: SortOrder
+    auth0Id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9696,20 +9676,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9742,6 +9708,11 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CardCountOrderByAggregateInput = {
@@ -9990,6 +9961,17 @@ export namespace Prisma {
     _max?: NestedEnumTradeStatusFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type GameSessionCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -10027,6 +10009,28 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     score?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type UserCreatebookmarksInput = {
+    set: string[]
+  }
+
+  export type UserCreatelikedInput = {
+    set: string[]
   }
 
   export type CardCreateNestedManyWithoutOwnerInput = {
@@ -10117,8 +10121,14 @@ export namespace Prisma {
     set?: string
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type UserUpdatebookmarksInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdatelikedInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -10621,6 +10631,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type UserUpdateOneRequiredWithoutGameSessionsNestedInput = {
     create?: XOR<UserCreateWithoutGameSessionsInput, UserUncheckedCreateWithoutGameSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutGameSessionsInput
@@ -10652,17 +10666,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -10720,31 +10723,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10788,6 +10766,17 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -10845,6 +10834,31 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTradeStatusFilter<$PrismaModel>
     _max?: NestedEnumTradeStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CardCreateWithoutOwnerInput = {
@@ -11172,9 +11186,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCardsInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     comments?: CommentCreateNestedManyWithoutAuthorInput
@@ -11186,9 +11200,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutCardsInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -11323,9 +11337,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCardsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutAuthorNestedInput
@@ -11337,9 +11351,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutCardsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -11414,9 +11428,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCommentsInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -11428,9 +11442,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutCommentsInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -11485,9 +11499,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCommentsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -11499,9 +11513,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -11574,9 +11588,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutListingsInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -11588,9 +11602,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutListingsInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -11651,9 +11665,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutListingsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -11665,9 +11679,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutListingsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -11734,9 +11748,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutTradesOfferedInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -11748,9 +11762,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTradesOfferedInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -11766,9 +11780,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutTradesReceivedInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -11780,9 +11794,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTradesReceivedInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -11877,9 +11891,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutTradesOfferedInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -11891,9 +11905,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTradesOfferedInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -11915,9 +11929,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutTradesReceivedInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -11929,9 +11943,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTradesReceivedInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
@@ -11942,9 +11956,9 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutGameSessionsInput = {
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardCreateNestedManyWithoutOwnerInput
@@ -11956,9 +11970,9 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutGameSessionsInput = {
     id?: number
-    email: string
-    password: string
-    emailVerified?: Date | string | null
+    auth0Id: string
+    bookmarks?: UserCreatebookmarksInput | string[]
+    liked?: UserCreatelikedInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
@@ -11985,9 +11999,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutGameSessionsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutOwnerNestedInput
@@ -11999,9 +12013,9 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutGameSessionsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auth0Id?: StringFieldUpdateOperationsInput | string
+    bookmarks?: UserUpdatebookmarksInput | string[]
+    liked?: UserUpdatelikedInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput

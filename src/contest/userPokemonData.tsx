@@ -20,6 +20,7 @@ export const usePokemonData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonListDetails, setPokemonListDetails] = useState<any[]>([]);
   const [originalPokemonListDetail, setOriginalPokemonListDetail] = useState<any[]>([]);
+  const [activePokemon, setActivePokemon] = useState<any>(null);
  
 
   const fetchPokemon = async (page = 1) => {
@@ -122,9 +123,29 @@ export const usePokemonData = () => {
       return null;
     }
   };
+  const fetchPokemonDetailsByName = async (name: string) => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${pokemonBaseUrl}/pokemon/${name}`);
+      const data = await res.data;
+      setLoading(false);
+      console.log("Pokemon details by name:", data);
+      setActivePokemon(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching Pokemon details by name:", error);
+      setLoading(false);
+      return null;
+    }
+  };
+  const loadMore = async () => {
+    fetchPokemon(currentPage + 1);
+  };
+
   useEffect(() => {
     fetchPokemon();
     fetchAllData();
+    loadMore();
     
   }, []);
 
@@ -160,6 +181,10 @@ export const usePokemonData = () => {
       setOriginalPokemonListDetail,
       loading,
       fetchPokemon,
+      fetchPokemonDetailsByName,
+      activePokemon,
+      setActivePokemon,
+      loadMore,
     };
   }
  

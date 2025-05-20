@@ -1,14 +1,18 @@
-import React from "react";
+import React, { use } from "react";
 import { Icons } from "@/utils/icons";
 import { useRouter } from "next/navigation";
 import { Wind } from "lucide-react";
 import { colorMap } from "@/utils/color";
+import { useGlobalContest } from "@/contest/globalContest";
+import { useUser } from "@auth0/nextjs-auth0";
 
 interface PokemonCardProps {
   pokemon: any;
 }
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
+  const { user } = useUser();
+  const {performAction} =useGlobalContest();
   const router = useRouter();
  
   const key = pokemon.type?.type?.name;
@@ -24,6 +28,16 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           </button>
           <button
             className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
+            onClick={() => {
+              if (user?.sub) {
+                router.push("/api/auth/login");
+                if (performAction) {
+                  performAction(user.sub, pokemon.name, "add");
+                }
+              } else {
+                router.push("/api/auth/login");
+              }
+            }}
           >
             {Icons.bookmarkEmpty}
           </button>

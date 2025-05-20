@@ -1,6 +1,8 @@
 import { User } from "lucide-react";
 import React from "react";
 import { usePokemonData } from "./userPokemonData";
+import { useUserData } from "./userData"
+import { useUser } from "@auth0/nextjs-auth0";
 
 
 type GlobalContestContextType = {
@@ -11,6 +13,8 @@ type GlobalContestContextType = {
   pokemonList: any[];
   fetchPokemonDetailsByName: (name: string) => Promise<any>;
   activePokemon?: any;
+  userDetails?: any; // Replace 'any' with the actual type if available
+  performAction?: (id: string, _pokema: string, action: string) => Promise<any>;
   // Replace 'any' with the actual type if available
   // Replace 'any[]' with the actual type if available
 };
@@ -23,15 +27,19 @@ const GlobalContest = React.createContext<GlobalContestContextType>({
   fetchPokemonDetailsByName: async (name: string) => Promise.resolve(),
   pokemonList: [],
   activePokemon: undefined,
+  performAction: async (id: string, _pokema: string, action: string) => Promise.resolve(),
+  userDetails: undefined, // Initialize with undefined
   // Initialize with a no-op function
 });
+const {user} = useUser();
 
 export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const { loadMore,loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName,activePokemon } = usePokemonData();
+  const { loadMore, loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName, activePokemon } = usePokemonData();
+  const { userDetails, performAction } = useUserData(user?.sub);
   console.log("GlobalContestProvider");
 
   return (
-    <GlobalContest.Provider value={{loadMore, loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName,activePokemon }}>
+    <GlobalContest.Provider value={{loadMore, loading, fetchPokemon, pokemonListDetails, pokemonList, fetchPokemonDetailsByName,activePokemon,performAction, userDetails}}>
       {children}
     </GlobalContest.Provider>
   );

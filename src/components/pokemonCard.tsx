@@ -1,10 +1,10 @@
-import React, { use, useActionState } from "react"; // `useActionState` is not used here, can be removed if not needed elsewhere
+"use client"
+import React, { use, useActionState, useEffect } from "react"; // `useActionState` is not used here, can be removed if not needed elsewhere
 import { Icons } from "@/utils/icons";
 import { useRouter } from "next/navigation";
 import { colorMap } from "@/utils/color";
 import { useGlobalContest } from "@/app/contest/globalContest";
-import { useUser } from "@auth0/nextjs-auth0";
-import { Button } from "react-day-picker"; // `Button` is not used here, can be removed if not needed elsewhere
+import { useUser } from "@auth0/nextjs-auth0"; // `Button` is not used here, can be removed if not needed elsewhere
 import { sub } from "date-fns";
 
 interface PokemonCardProps {
@@ -13,31 +13,47 @@ interface PokemonCardProps {
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const { user } = useUser();
-  const { performAction } = useGlobalContest();
+  const { performAction,userDetails } = useGlobalContest();
   const router = useRouter();
+
+
+  const Liked = userDetails?.liked?.includes(pokemon?.name);
+  const bookmarked = userDetails?.bookmarks?.includes(pokemon?.name);
+
+  const [isLiked, setIsLiked] = React.useState(Liked);
+  const [isbookmarked, setBookmarked] = React.useState(bookmarked)
+
+console.log("what do i see:",userDetails)
+  
+  
 
   const key = pokemon.type?.type?.name;
   const bgColor = colorMap[key] || "bg-gray-200";
-
+  useEffect(() => {
+    setIsLiked(Liked)
+  
+  }, [Liked])
+  useEffect(() => {
+    setBookmarked(bookmarked)
+  },[bookmarked])
   
 
   return (
     <div>
-      {" "}
       {/* You might want to add back the `relateve p-4 bg-white rounded-xl shadow-sm flex flex-col gap-2` classes here */}
       <div className="relateve p-4 bg-white rounded-xl shadow-sm flex flex-col gap-2">
-        {" "}
         {/* This div seems to be wrapping the outer div, might be redundant if the outer div is the main container */}
         <div className=" flex justify-between items-center">
           <div className="flex gap-4 bg-white rounded-tl-xl rounded-tr-xl">
             {/* LIKE BUTTON */}
             <button
-              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
+              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${isLiked ? "text-[#fd4878] border-[#fd4878]" : ""}`}
               name="liked" // Ensure `name="like"`
               onClick={() => {
                 if (user?.sub) {
                   if (performAction) {
                     performAction(user?.sub, pokemon?.name, "liked");
+                    setIsLiked((prev: boolean) => !prev);
                     console.log("performAction:", performAction);
                   } else {
                     alert('what happen!')
@@ -48,16 +64,17 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
               }}
             >
               
-              {Icons.heartEmpty}
+              {isLiked ? Icons.heartFilled : Icons.heartEmpty}
             </button>
             {/* BOOKMARK BUTTON */}
             <button
-              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full`}
+              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${isbookmarked ? 'text-green-300 border-green-300' : ''}`}
               name="bookmarks" // Add `name="bookmark"`
               onClick={() => {
                 if (user?.sub) {
                   if (performAction) {
                     performAction(user?.sub, pokemon?.name, "bookmarks");
+                    setBookmarked((prev: boolean) => !prev);
                     console.log("performActio:", performAction);
                   }
                   else {
@@ -67,7 +84,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
                 }
               }} // Use the shared handler
             >
-              {Icons.bookmarkEmpty}
+              {isbookmarked?Icons.bookmarkFilled:Icons.bookmarkEmpty}
             </button>
           </div>
           <button

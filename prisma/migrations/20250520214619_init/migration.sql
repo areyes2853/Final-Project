@@ -4,9 +4,12 @@ CREATE TYPE "TradeStatus" AS ENUM ('PENDING', 'ACCEPTED', 'DECLINED');
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
+    "auth0Id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "emailVerified" TIMESTAMP(3),
+    "name" TEXT NOT NULL,
+    "emailVerified" BOOLEAN DEFAULT false,
+    "bookmarks" TEXT[],
+    "liked" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -74,6 +77,9 @@ CREATE TABLE "GameSession" (
 
     CONSTRAINT "GameSession_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_auth0Id_key" ON "User"("auth0Id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

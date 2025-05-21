@@ -1,5 +1,10 @@
+"use server"
 import { NextRequest, NextResponse } from "next/server";
+
+// export async function pokemonData( pokemon: string) {
+//   const pokemonData = PokemonCard.get();import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/db/prisma";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,7 +23,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    if (!["bookmark", "like"].includes(action)) {
+    if (!["bookmark", "liked"].includes(action)) {
       return NextResponse.json({ message: "Invalid action" }, { status: 400 });
     }
 
@@ -31,6 +36,9 @@ export async function POST(request: NextRequest) {
       select: {
         id: true, // Prisma's internal ID
         auth0Id: true,
+        email:true,
+        name:true,
+        emailVerified:true,
         bookmarks: true,
         liked: true,
         // If you ever add email/name to schema, you can select them here:
@@ -40,14 +48,15 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user) {
+      const { user: authUser } = useUser();
       // If user doesn't exist, create them with initial empty arrays
       user = await prisma.user.create({
         data: {
           auth0Id: id,
           bookmarks: [],
           liked: [],
-          email: "placeholder@example.com", // Replace with actual email if available
-          name: "Unknown User", // Replace with actual name if available
+          email: authUser?.email ?? "", // Replace with actual email if available, fallback to empty string
+          name: authUser?.name ?? "", // Replace with actual name if available, fallback to empty string
         },
         select: {
           // Select the fields you need from the newly created user
@@ -55,6 +64,9 @@ export async function POST(request: NextRequest) {
           auth0Id: true,
           bookmarks: true,
           liked: true,
+          name: true,
+          email: true,
+          emailVerified: true,
         },
       });
     }

@@ -1,8 +1,9 @@
 import { User } from "lucide-react";
 import React from "react";
 import { usePokemonData } from "./userPokemonData";
-import { useUserData } from "../api/page"
+import { useUserData } from "./userData"
 import { useUser } from "@auth0/nextjs-auth0";
+
 
 
 type GlobalContestContextType = {
@@ -14,7 +15,7 @@ type GlobalContestContextType = {
   fetchPokemonDetailsByName: (name: string) => Promise<any>;
   activePokemon?: any;
   userDetails?: any; // Replace 'any' with the actual type if available
-  performAction?: (id: string, _pokema: string, action: string) => Promise<any>;
+  performAction?: (id: string, _pokema: string, action: "liked" | "bookmarks") => Promise<any>;
   // Replace 'any' with the actual type if available
   // Replace 'any[]' with the actual type if available
 };
@@ -27,7 +28,7 @@ const GlobalContest = React.createContext<GlobalContestContextType>({
   fetchPokemonDetailsByName: async (name: string) => Promise.resolve(),
   pokemonList: [],
   activePokemon: undefined,
-  performAction: async (id: string, _pokema: string, action: string) => Promise.resolve(),
+  performAction: async (id: string, _pokema: string, action: "liked" | "bookmarks") => Promise.resolve(),
   userDetails: undefined, // Initialize with undefined
   // Initialize with a no-op function
 });

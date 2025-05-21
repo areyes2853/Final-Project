@@ -1,3 +1,5 @@
+
+
 "user client"
 
 import { auth0 } from "@/lib/auth0";
@@ -12,6 +14,17 @@ interface UserDetails {
 export const useUserData = (user: any) => {
   // 'user' is the Auth0 user profile
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+
+  const fetchUserDetails = async () => {
+    if (!user) return;
+
+    try {
+      const res = await axios.get(`/api/user/${user?.sub}`);
+      setUserDetails(res.data);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  }
 
 
   const performAction = async (
@@ -43,5 +56,6 @@ export const useUserData = (user: any) => {
   // and userDetails is the one being passed to context.
   // If you only need it as a temporary derived value, it's fine.
   // But if `userDetails` state is meant to hold the user info, then you should rely on that.
-  return { userDetails, performAction }; // Removed userInfo from return as userDetails state is fulfilling that role
+  console.log("userdetail:", userDetails);
+  return { userDetails, performAction,fetchUserDetails }; // Removed userInfo from return as userDetails state is fulfilling that role
 };

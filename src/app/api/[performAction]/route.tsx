@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     let user = await prisma.user.findUnique({
       where: { auth0Id: id },
     });
+    
 
     if (!user) {
       user = await prisma.user.create({

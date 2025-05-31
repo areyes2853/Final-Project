@@ -1,3 +1,4 @@
+"use client";
 import { User } from "lucide-react";
 import React, { useEffect } from "react";
 import { usePokemonData } from "./userPokemonData";
@@ -15,11 +16,11 @@ type GlobalContestContextType = {
   activePokemon?: any;
   userDetails?: any; // Replace 'any' with the actual type if available
   performAction?: (
-    id: string,
+    userId: string,
     _pokema: string,
-    action: "liked" | "bookmarks"
+    action: "liked" | "bookmark"
   ) => Promise<any>;
-  fetchUserDetails: () => void;
+  fetchUserDetails: (id: any) => Promise<void>;
 
   // Replace 'any' with the actual type if available
   // Replace 'any[]' with the actual type if available
@@ -34,18 +35,16 @@ const GlobalContest = React.createContext<GlobalContestContextType>({
   pokemonList: [],
   activePokemon: undefined,
   performAction: async (
-    id: string,
+    userId: string,
     _pokema: string,
-    action: "liked" | "bookmarks"
+    action: "liked" | "bookmark"
   ) => Promise.resolve(),
   userDetails: undefined,
-  fetchUserDetails: () => {}, // Initialize with undefined
+  fetchUserDetails: async (userId: any) => Promise.resolve(), // Initialize with a no-op async function
   // Initialize with a no-op function
 });
 
-export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({
-  children,
-}) => {
+export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const { user } = useUser();
   const {
     loadMore,
@@ -56,14 +55,14 @@ export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({
     fetchPokemonDetailsByName,
     activePokemon,
   } = usePokemonData();
-  const { userDetails, performAction, fetchUserDetails } = useUserData(
-    user?.sub
-  );
-  console.log("GlobalContestProvider");
+  const { userDetails, performAction, fetchUserDetails } = useUserData();
+  console.log("GlobalContestProvider", userDetails, user, performAction);
+
+console.log("WHO is the user", userDetails);
 
   useEffect(() => {
-    if (user?.sub) fetchUserDetails();
-console.log("fetchuserdatils",user)
+    if (user) fetchUserDetails();
+
     // console.log("user:", user);
   }, [user]);
 
@@ -87,11 +86,5 @@ console.log("fetchuserdatils",user)
   );
 };
 export const useGlobalContest = () => {
-  const context = React.useContext(GlobalContest);
-  if (!context) {
-    throw new Error(
-      "useGlobalContest must be used within a GlobalContestProvider"
-    );
-  }
-  return context;
+  return React.useContext(GlobalContest);
 };

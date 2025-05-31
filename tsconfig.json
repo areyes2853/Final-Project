@@ -24,6 +24,6 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*",
-    "pages/**/*",".next/types/**/*.ts"],
+    "pages/**/*",".next/types/**/*.ts", "src/app/contact/test.ts"],
   "exclude": ["node_modules"]
 }

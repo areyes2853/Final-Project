@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { colorMap } from "@/utils/color";
 import { useGlobalContest } from "@/app/contest/globalContest";
 import { useUser } from "@auth0/nextjs-auth0"; // `Button` is not used here, can be removed if not needed elsewhere
-import { sub } from "date-fns";
+
+
 
 interface PokemonCardProps {
   pokemon: any;
@@ -16,6 +17,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
   const { performAction,userDetails } = useGlobalContest();
   const router = useRouter();
 
+console.log("userDetails:", userDetails);
 
   const Liked = userDetails?.liked?.includes(pokemon?.name);
   const bookmarked = userDetails?.bookmarks?.includes(pokemon?.name);
@@ -23,19 +25,25 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
   const [isLiked, setIsLiked] = React.useState(Liked);
   const [isbookmarked, setBookmarked] = React.useState(bookmarked)
 
-console.log("what do i see:",userDetails)
+
   
   
 
   const key = pokemon.type?.type?.name;
   const bgColor = colorMap[key] || "bg-gray-200";
   useEffect(() => {
-    setIsLiked(Liked)
-  
-  }, [Liked])
-  useEffect(() => {
-    setBookmarked(bookmarked)
-  },[bookmarked])
+    setIsLiked(Liked);
+    setBookmarked(bookmarked);
+  }, [Liked, bookmarked]);
+
+  if (!user?.sub || !userDetails) {
+    
+    return (
+      <div className="flex items-center justify-center h-full">
+        Loading user preferences...
+      </div>
+    );
+  }
   
 
   return (
@@ -73,7 +81,7 @@ console.log("what do i see:",userDetails)
               onClick={() => {
                 if (user?.sub) {
                   if (performAction) {
-                    performAction(user?.sub, pokemon?.name, "bookmarks");
+                    performAction(user?.sub, pokemon?.name, "bookmark");
                     setBookmarked((prev: boolean) => !prev);
                     console.log("performActio:", performAction);
                   }

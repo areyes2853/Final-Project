@@ -21,6 +21,14 @@ export const usePokemonData = () => {
   const [pokemonListDetails, setPokemonListDetails] = useState<any[]>([]);
   const [originalPokemonListDetail, setOriginalPokemonListDetail] = useState<any[]>([]);
   const [activePokemon, setActivePokemon] = useState<any>(null);
+
+  const [filters, setFilters] = useState({
+    type: "",
+    ability: "",
+    weight: "",
+    height: "",
+    sortOrder: "",
+  });
  
 
   const fetchPokemon = async (page = 1) => {

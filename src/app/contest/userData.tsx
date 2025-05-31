@@ -1,61 +1,79 @@
-
-
-"user client"
-
-import { auth0 } from "@/lib/auth0";
-// src/contest/userData.ts
+import { useUser } from "@auth0/nextjs-auth0/";
 import axios from "axios";
-import { useState, useEffect } from "react"; // Added useEffect for better state management
+import { useEffect, useState } from "react";
 
-interface UserDetails {
-  [key: string]: any; // You should ideally define more specific types here based on your User model
-}
 
-export const useUserData = (user: any) => {
-  // 'user' is the Auth0 user profile
+type UserDetails = {
+  bookmarks: string[];
+  liked: string[];
+  // add other properties as needed
+};
+
+export const useUserData = () => {
+  const { user } = useUser();
+  // Removed invalid handler() call; not usable in client-side code
+
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+ 
 
   const fetchUserDetails = async () => {
     if (!user) return;
 
     try {
-      const res = await axios.get(`/api/user/${user?.sub}`);
+      const res = await axios.get(`/api/user/${user.sub}`);
+      console.log("Response from /api/user:", res.data);
       setUserDetails(res.data);
+      if (!res.data) {
+        console.log("No user details found");
+        return;
+      }
+      setUserDetails(res.data);
+      console.log("User details fetched successfully:", res.data);
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.log("Error in fetchUserDetails", error);
     }
-  }
+  };
+  useEffect(() => {
+    fetchUserDetails();
+  }, [user]);
+  console.log("useUserData", user, userDetails);
 
-
-  const performAction = async (
-    id: string, // Renamed parameter to be clearer it's the user ID (auth0Id)
-    pokemonName: string, // Renamed for clarity
-    action: "liked" | "bookmarks" // Enforce allowed actions
-  ): Promise<any> => {
-    
+  const performAction = async (userId: any, pokemon: any, action: string) => {
     try {
-      // CORRECTED: URL should be /api/contest
-      // CORRECTED: Payload key should be 'id'
-       await axios.post("/api/performAction", {
-        id, // Send as 'id' to match API route
-        pokemon: pokemonName,
-        action,
+      setUserDetails((prev) => {
+        if (!prev) return prev; // or return a default value if needed
+
+        const updatedBookmarks =
+          action === "bookmark"
+            ? prev.bookmarks.includes(pokemon) // Is it already bookmarked?
+              ? prev.bookmarks.filter((p) => p !== pokemon) // if yes then remove it
+              : [...prev.bookmarks, pokemon] // if no then add it
+            : prev.bookmarks; // no change in bookmarks
+
+        const updatedLikes =
+          action === "like"
+            ? prev.liked.includes(pokemon) // Is it already liked?
+              ? prev.liked.filter((p) => p !== pokemon) // if yes then remove it
+              : [...prev.liked, pokemon] // if no then add it
+            : prev.liked; // no change in likes
+
+        return {
+          ...prev,
+          bookmarks: updatedBookmarks,
+          liked: updatedLikes,
+        };
       });
 
-    
-     
-
-      
+      await axios.post("/api/pokemon", {
+        userId,
+        pokemon,
+        action,
+      });
     } catch (error) {
-      console.error("Error in performAction:", error);
-      // Re-throw the error so it can be caught by the component
+      console.log("Error in performAction", error);
+      fetchUserDetails(); // when error, fetch the user details again
     }
   };
 
-  // userInfo is now largely redundant if userDetails state is managing it
-  // and userDetails is the one being passed to context.
-  // If you only need it as a temporary derived value, it's fine.
-  // But if `userDetails` state is meant to hold the user info, then you should rely on that.
-  console.log("userdetail:", userDetails);
-  return { userDetails, performAction,fetchUserDetails }; // Removed userInfo from return as userDetails state is fulfilling that role
+  return { userDetails, performAction, fetchUserDetails };
 };

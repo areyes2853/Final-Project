@@ -15,7 +15,7 @@ const navigation = [
   { name: "Marketplace", link: "/marketPlace", current: false },
   { name: "Trading", link: "/trade", current: false },
   { name: "Gaming", link: "/game", current: false },
-  { name: "About", link: "/about", current: false },
+  { name: "Bookmarked", link: "/bookmarks", current: false },
   { name: "Contact", link: "/contact", current: false },
   { name: "Profile", link: "/userProfile", current: false },
   { name: "Settings", link: "/setting", current: false },

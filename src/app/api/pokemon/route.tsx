@@ -5,7 +5,7 @@ import { prisma } from "@/db/prisma";
 export async function POST(request: NextRequest) {
   try {
     const { userId, pokemon, action } = await request.json();
-    if (!["bookmarks", "liked"].includes(action)) {
+    if (!["bookmark", "like"].includes(action)) {
       return NextResponse.json({ message: "Invalid action" }, { status: 400 });
     }
 
@@ -24,10 +24,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Determine which field to update (bookmarks vs. liked)
-    const fieldToUpdate = action === "bookmarks" ? "bookmarks" : "liked";
+    const fieldToUpdate = action === "bookmark" ? "bookmarks" : "liked";
     const currentItems = (user as any)[fieldToUpdate] as string[];
     const toggledOff = currentItems.includes(pokemon);
-    const updatedItems = toggledOff
+    let updatedItems = toggledOff
       ? currentItems.filter((item) => item !== pokemon)
       : [...currentItems, pokemon];
 

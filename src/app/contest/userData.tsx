@@ -21,14 +21,14 @@ export const useUserData = () => {
 
     try {
       const res = await axios.get(`/api/user/${user.sub}`);
-      console.log("Response from /api/user:", res.data);
+      // console.log("Response from /api/user:", res.data);
       setUserDetails(res.data);
       if (!res.data) {
         console.log("No user details found");
         return;
       }
       setUserDetails(res.data);
-      console.log("User details fetched successfully:", res.data);
+      // console.log("User details fetched successfully:", res.data);
     } catch (error) {
       console.log("Error in fetchUserDetails", error);
     }
@@ -36,7 +36,7 @@ export const useUserData = () => {
   useEffect(() => {
     fetchUserDetails();
   }, [user]);
-  console.log("useUserData", user, userDetails);
+  // console.log("useUserData", user, userDetails);
 
   const performAction = async (userId: any, pokemon: any, action: string) => {
     try {

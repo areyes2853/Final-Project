@@ -41,7 +41,7 @@ export const usePokemonData = () => {
       const data = await res.data;
       setLoading(false);
     
-      console.log("Pokemon data:", data);
+      // console.log("Pokemon data:", data);
       setPokemonList((prevList) => [...prevList, ...data.results]);
       setCurrentPage(page);
       return data.results;
@@ -61,7 +61,7 @@ export const usePokemonData = () => {
       const res = await axios.get(pokemonSpeciesUrl);
       const data = await res.data;
       setPokemonSpeciesData(data);
-      console.log("Species data:", data);
+      // console.log("Species data:", data);
     } catch (error) {
       console.error("Error fetching species data:", error);
     }
@@ -72,7 +72,7 @@ export const usePokemonData = () => {
       const res = await axios.get(pokemonAbilityUrl);
       const data = await res.data;
       setPokemonAbilityData(data);
-      console.log("Ability data:", data);
+      // console.log("Ability data:", data);
     } catch (error) {
       console.error("Error fetching ability data:", error);
     }
@@ -83,7 +83,7 @@ export const usePokemonData = () => {
       const res = await axios.get(pokemonTypeUrl);
       const data = await res.data;
       setPokemonTypeData(data);
-      console.log("Type data:", data);
+      // console.log("Type data:", data);
     } catch (error) {
       console.error("Error fetching type data:", error);
     }
@@ -94,7 +94,7 @@ export const usePokemonData = () => {
       const res = await axios.get(pokemonNatureUrl);
       const data = await res.data;
       setPokemonNatureData(data);
-      console.log("Nature data:", data);
+      // console.log("Nature data:", data);
     } catch (error) {
       console.error("Error fetching nature data:", error);
     }
@@ -117,7 +117,7 @@ export const usePokemonData = () => {
       const detail = await Promise.all(
         pokemonList.map(async (pokemon) => {
           const data = await axios.get(pokemon.url);
-          console.log("Pokemon details:", data);
+          // console.log("Pokemon details:", data);
           return data;
         })
       );
@@ -162,13 +162,13 @@ export const usePokemonData = () => {
       fetchPokemonDetails();
     }
   }, [pokemonList]);
-  console.log("Pokemon List:", pokemonList);
-  console.log("Pokemon all", pokemonListDetails);
-  console.log("Pokemon species data:", pokemonSpeciesData);
-  console.log("Pokemon ability data:", pokemonAbilityData);
-  console.log("Pokemon type data:", pokemonTypeData);
-  console.log("Pokemon nature data:", pokemonNatureData);
-  console.log("Pokemon list details:", pokemonListDetails);
+  // console.log("Pokemon List:", pokemonList);
+  // console.log("Pokemon all", pokemonListDetails);
+  // console.log("Pokemon species data:", pokemonSpeciesData);
+  // console.log("Pokemon ability data:", pokemonAbilityData);
+  // console.log("Pokemon type data:", pokemonTypeData);
+  // console.log("Pokemon nature data:", pokemonNatureData);
+  // console.log("Pokemon list details:", pokemonListDetails);
   
     return {
       pokemonList,

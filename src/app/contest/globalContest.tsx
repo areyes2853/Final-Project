@@ -18,7 +18,7 @@ type GlobalContestContextType = {
   performAction?: (
     userId: string,
     _pokema: string,
-    action: "liked" | "bookmark"
+    action: "like" | "bookmark"
   ) => Promise<any>;
   fetchUserDetails: (id: any) => Promise<void>;
 
@@ -37,7 +37,7 @@ const GlobalContest = React.createContext<GlobalContestContextType>({
   performAction: async (
     userId: string,
     _pokema: string,
-    action: "liked" | "bookmark"
+    action: "like" | "bookmark"
   ) => Promise.resolve(),
   userDetails: undefined,
   fetchUserDetails: async (userId: any) => Promise.resolve(), // Initialize with a no-op async function
@@ -56,9 +56,9 @@ export const GlobalContestProvider: React.FC<React.PropsWithChildren<{}>> = ({ c
     activePokemon,
   } = usePokemonData();
   const { userDetails, performAction, fetchUserDetails } = useUserData();
-  console.log("GlobalContestProvider", userDetails, user, performAction);
+  // console.log("GlobalContestProvider", userDetails, user, performAction);
 
-console.log("WHO is the user", userDetails);
+// console.log("WHO is the user", userDetails);
 
   useEffect(() => {
     if (user) fetchUserDetails();

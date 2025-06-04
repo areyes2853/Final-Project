@@ -19,11 +19,11 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
 
 console.log("userDetails:", userDetails);
 
-  const Liked = userDetails?.liked?.includes(pokemon?.name);
-  const bookmarked = userDetails?.bookmarks?.includes(pokemon?.name);
+  const isLiked = userDetails?.liked?.includes(pokemon?.name);
+  const isBookmarked = userDetails?.bookmarks?.includes(pokemon?.name);
 
-  const [isLiked, setIsLiked] = React.useState(Liked);
-  const [isbookmarked, setBookmarked] = React.useState(bookmarked)
+  const [liked, setliked] = React.useState(isLiked);
+  const [bookmarks, setisBookmarked] = React.useState(isBookmarked)
 
 
   
@@ -32,11 +32,11 @@ console.log("userDetails:", userDetails);
   const key = pokemon.type?.type?.name;
   const bgColor = colorMap[key] || "bg-gray-200";
   useEffect(() => {
-    setIsLiked(Liked);
-    setBookmarked(bookmarked);
-  }, [Liked, bookmarked]);
+    setliked(isLiked);
+    setisBookmarked(isBookmarked);
+  }, [isLiked, isBookmarked]);
 
-  if (!user?.sub || !userDetails) {
+  if (!userDetails) {
     
     return (
       <div className="flex items-center justify-center h-full">
@@ -55,13 +55,13 @@ console.log("userDetails:", userDetails);
           <div className="flex gap-4 bg-white rounded-tl-xl rounded-tr-xl">
             {/* LIKE BUTTON */}
             <button
-              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${isLiked ? "text-[#fd4878] border-[#fd4878]" : ""}`}
-              name="liked" // Ensure `name="like"`
+              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${liked ? "text-[#fd4878] border-[#fd4878]" : ""}`}
+              name="like" // Ensure `name="like"`
               onClick={() => {
                 if (user?.sub) {
                   if (performAction) {
-                    performAction(user?.sub, pokemon?.name, "liked");
-                    setIsLiked((prev: boolean) => !prev);
+                    performAction(user?.sub, pokemon?.name, "like");
+                    setliked((prev: boolean) => !prev);
                     console.log("performAction:", performAction);
                   } else {
                     alert('what happen!')
@@ -72,17 +72,17 @@ console.log("userDetails:", userDetails);
               }}
             >
               
-              {isLiked ? Icons.heartFilled : Icons.heartEmpty}
+              {liked ? Icons.heartFilled : Icons.heartEmpty}
             </button>
             {/* BOOKMARK BUTTON */}
             <button
-              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${isbookmarked ? 'text-green-300 border-green-300' : ''}`}
-              name="bookmarks" // Add `name="bookmark"`
+              className={`p-2 w-10 text-xl flex items-center justify-center rounded-full ${bookmarks ? 'text-green-300 border-green-300' : ''}`}
+              name="bookmark" // Add `name="bookmark"`
               onClick={() => {
                 if (user?.sub) {
                   if (performAction) {
                     performAction(user?.sub, pokemon?.name, "bookmark");
-                    setBookmarked((prev: boolean) => !prev);
+                    setisBookmarked((prev: boolean) => !prev);
                     console.log("performActio:", performAction);
                   }
                   else {
@@ -92,7 +92,7 @@ console.log("userDetails:", userDetails);
                 }
               }} // Use the shared handler
             >
-              {isbookmarked?Icons.bookmarkFilled:Icons.bookmarkEmpty}
+              {bookmarks?Icons.bookmarkFilled:Icons.bookmarkEmpty}
             </button>
           </div>
           <button

@@ -1,69 +1,47 @@
-// app/api/auth/[auth0]/route.ts
-// import { auth0 } from "@/lib/auth0"; // Adjust path if needed
-
-// export const GET = async (req: Request) => {
-//   // Implement your GET handler logic or delegate to auth0 if available
-//   return new Response("GET not implemented", { status: 501 });
-// };
-
-// export const POST = async (req: Request) => {
-//   // Implement your POST handler logic or delegate to auth0 if available
-//   return new Response("POST not implemented", { status: 501 });
-// };
-
-// Drop this file in /pages/hello.js to route to /hello
-// import { auth0 } from "@/lib/auth0";
-
-// export const GET = async (req: Request) => {
-//   const session = await auth0.getSession();
-//   if (!session || !session.user) {
-//     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
-//   }
-//   const { user } = session;
-//   return new Response(
-//     JSON.stringify({
-//       picture: user.picture,
-//       name: user.name,
-//       email: user.email,
-//     }),
-//     {
-//       status: 200,
-//       headers: { "Content-Type": "application/json" },
-//     }
-//   );
-// };
-
-// import { NextResponse } from "next/server";
-
-// import { auth0 } from "@/lib/auth0";
-
-// export async function GET() {
-//   const session = await auth0.getSession();
-
-//   if (!session) {
-//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-//   }
-
-//   await auth0.updateSession({
-//     ...session,
-//     updatedAt: Date.now(),
-//   });
-
-//   return NextResponse.json(null, { status: 200 });
-// }
 import { NextApiRequest, NextApiResponse } from "next";
 import { auth0 } from "@/lib/auth0"; // Adjust path if needed
 import { prisma } from "@/db/prisma";
 import { useUser } from "@auth0/nextjs-auth0";
 import { PagesRouterRequest } from "@auth0/nextjs-auth0/types";
 import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
- 
-export  async function callback(req: PagesRouterRequest | NextRequest, res: { redirect: (arg0: string) => void; }) {
+
+
+// Removed duplicate GET handler to resolve duplicate identifier error
+
+export const POST = async (req: Request) => {
+  // Implement your POST handler logic or delegate to auth0 if available
+  return new Response("POST not implemented", { status: 501 });
+};
+
+
+// Removed duplicate GET handler to resolve duplicate identifier error
+
+
+export async function GET() {
+  const session = await auth0.getSession();
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  await auth0.updateSession({
+    ...session,
+    updatedAt: Date.now(),
+  });
+
+  return NextResponse.json(null, { status: 200 });
+}
+
+export async function callback(
+  req: PagesRouterRequest | NextRequest,
+  res: { redirect: (arg0: string) => void }
+) {
   try {
-		const { user } = useUser();// Get Auth0 session user
-		
-    const user1  = await auth0.getSession();
+    const { user } = useUser(); // Get Auth0 session user
+
+    const user1 = await auth0.getSession();
 
     if (user1 && user?.sub) {
       // Check if user already exists in your database
@@ -77,7 +55,7 @@ export  async function callback(req: PagesRouterRequest | NextRequest, res: { re
           data: {
             auth0Id: user1.user.sub,
             email: user1.user.email ?? "", // Make sure email exists in Auth0 user object
-            name:user1.user.name ?? "", // Make sure name exists
+            name: user1.user.name ?? "", // Make sure name exists
             // other fields as needed, e.g., emailVerified
           },
         });
@@ -95,10 +73,7 @@ export  async function callback(req: PagesRouterRequest | NextRequest, res: { re
   res.redirect("/"); // Or wherever your app should go after login
 }
 
-export async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { user } = useUser();
   if (req.method === "GET") {
     const { auth0Id } = req.query; // This will be the user.sub from your client

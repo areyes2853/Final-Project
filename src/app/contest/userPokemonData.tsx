@@ -162,6 +162,7 @@ export const usePokemonData = () => {
       fetchPokemonDetails();
     }
   }, [pokemonList]);
+  //test
   // console.log("Pokemon List:", pokemonList);
   // console.log("Pokemon all", pokemonListDetails);
   // console.log("Pokemon species data:", pokemonSpeciesData);

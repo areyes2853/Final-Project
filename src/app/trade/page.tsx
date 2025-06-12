@@ -9,7 +9,7 @@ export default function TradePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => { 
-    if (userDetails?.liked || userDetails.liked.length === 0) {
+    if (userDetails?.liked ) {
       setLoading(true);
       const fetchLikedPokemon = async () => {
         const pokemonDetails = await Promise.all(
